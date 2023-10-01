@@ -1,5 +1,5 @@
-import { OAUTH_API_BASE } from './constants.ts';
-import OpenCloudOAuthToken from './auth/method/oauth.ts';
+import { OAUTH_API_BASE } from './constants';
+import OpenCloudOAuthToken from './auth/method/oauth';
 import type { OAuthClientId, OAuthPromptType, OAuthClientSecret, OAuthResponseType, OAuthObtainTokenResponse } from './types';
 export function createOAuthLink(client_id: OAuthClientId, redirect_uri: string, scope: string, prompt: OAuthPromptType = 'select_account', response_type: OAuthResponseType = 'code', state?: string | null, nonce?: string | null, code_challenge?: string | null, code_challenge_method?: string | null) {
 	const url = new URL('v1/authorize', OAUTH_API_BASE);

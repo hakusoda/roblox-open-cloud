@@ -1,9 +1,15 @@
 {
+	"include": ["./src/**/*"],
 	"compilerOptions": {
-		"noEmit": true,
+		"strict": true,
+		"outDir": "out",
 		"target": "esnext",
 		"module": "esnext",
+		"sourceMap": false,
+		"declaration": true,
+		"declarationMap": false,
+		"isolatedModules": true,
 		"moduleResolution": "node",
-		"allowImportingTsExtensions": true
+		"forceConsistentCasingInFileNames": true
 	}
 }

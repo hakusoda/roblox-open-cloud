@@ -1,5 +1,5 @@
-import type OpenCloudClient from './index.ts';
-import type { OpenCloudGroup } from '../types.ts';
+import type OpenCloudClient from './index';
+import type { OpenCloudGroup } from '../types';
 export default class OpenCloudGroups {
 	private client: OpenCloudClient;
 	private baseUrl = 'v2/groups';

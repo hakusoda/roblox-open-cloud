@@ -1,5 +1,5 @@
-import AuthenticationMethod from './index.ts';
-import type { OAuthObtainTokenResponse } from '../../types.ts';
+import AuthenticationMethod from './index';
+import type { OAuthObtainTokenResponse } from '../../types';
 export default class OpenCloudOAuthToken extends AuthenticationMethod {
 	private tokens: OAuthObtainTokenResponse;
 	public constructor(tokens: OAuthObtainTokenResponse) {

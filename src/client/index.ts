@@ -1,7 +1,7 @@
-import OpenCloudUsers from './users.ts';
-import OpenCloudGroups from './groups.ts';
-import type { HttpMethod } from '../types.ts';
-import type AuthenticationMethod from '../auth/method/index.ts';
+import OpenCloudUsers from './users';
+import OpenCloudGroups from './groups';
+import type { HttpMethod } from '../types';
+import type AuthenticationMethod from '../auth/method/index';
 export default class OpenCloudClient {
 	public auth: AuthenticationMethod;
 	public users: OpenCloudUsers;
@@ -26,7 +26,7 @@ export default class OpenCloudClient {
 			}
 		})
 			.then(response => {
-				if (response.headers.get('content-type').includes('application/json'))
+				if (response.headers.get('content-type')!.includes('application/json'))
 					return response.json();
 				return response.text();
 			});

@@ -4,9 +4,22 @@
 	"description": "TypeScript Library for interacting with the Roblox Open Cloud API.",
 	"version": "0.0.1",
 	"type": "module",
-	"main": "src/index.ts",
+	"main": "out/index.js",
+	"files": ["out"],
+	"exports": {
+		".": {
+			"types": "./out/index.d.ts",
+			"require": "./out/index.js"
+		}
+	},
 	"license": "MIT",
 	"homepage": "https://github.com/voxelified/roblox-open-cloud#readme",
 	"repository": "https://github.com/voxelified/roblox-open-cloud.git",
-	"packageManager": "yarn@4.0.0-rc.51"
+	"packageManager": "yarn@4.0.0-rc.51",
+	"scripts": {
+		"build": "tsc -p ./tsconfig.json"
+	},
+	"devDependencies": {
+		"typescript": "^5.2.2"
+	}
 }

@@ -1,5 +1,5 @@
-import type OpenCloudClient from './index.ts';
-import type { ListInventoryItemsResponse } from '../types.ts';
+import type OpenCloudClient from './index';
+import type { ListInventoryItemsResponse } from '../types';
 export default class OpenCloudUsers {
 	private client: OpenCloudClient;
 	private baseUrl = 'v2/users';
