@@ -6,6 +6,7 @@
 	"type": "module",
 	"main": "out/index.js",
 	"files": ["out"],
+	"types": "out/index.d.ts",
 	"exports": {
 		".": {
 			"types": "./out/index.d.ts",
