@@ -1,0 +1,12 @@
+{
+	"name": "@voxelified/roblox-open-cloud",
+	"author": "Voxelified",
+	"description": "TypeScript Library for interacting with the Roblox Open Cloud API.",
+	"version": "0.0.1",
+	"type": "module",
+	"main": "src/index.ts",
+	"license": "MIT",
+	"homepage": "https://github.com/voxelified/roblox-open-cloud#readme",
+	"repository": "https://github.com/voxelified/roblox-open-cloud.git",
+	"packageManager": "yarn@4.0.0-rc.51"
+}

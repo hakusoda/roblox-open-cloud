@@ -1,0 +1,1 @@
+export const OAUTH_API_BASE = 'https://apis.roblox.com/oauth';
