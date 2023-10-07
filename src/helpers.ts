@@ -1,15 +1,17 @@
 import { OAUTH_API_BASE } from './constants';
 import OpenCloudOAuthToken from './auth/method/oauth';
+import { WebRequestError, InvalidOAuthGrantError } from './errors';
 import type { OAuthClientId, OAuthPromptType, OAuthClientSecret, OAuthResponseType, OAuthObtainTokenResponse } from './types';
-export function createOAuthLink(client_id: OAuthClientId, redirect_uri: string, scope: string, prompt: OAuthPromptType = 'select_account', response_type: OAuthResponseType = 'code', state?: string | null, nonce?: string | null, code_challenge?: string | null, code_challenge_method?: string | null) {
-	const url = new URL('v1/authorize', OAUTH_API_BASE);
+export function createOAuthLink(client_id: OAuthClientId, redirect_uri: string, scope: string, prompt?: OAuthPromptType, response_type: OAuthResponseType = 'code', state?: string | null, nonce?: string | null, code_challenge?: string | null, code_challenge_method?: string | null) {
+	const url = new URL(`${OAUTH_API_BASE}/v1/authorize`);
 	const params = url.searchParams;
 	params.set('scope', scope);
-	params.set('prompt', prompt);
 	params.set('client_id', client_id.toString());
 	params.set('redirect_uri', redirect_uri);
 	params.set('response_type', response_type);
 
+	if (prompt)
+		params.set('prompt', prompt);
 	if (state)
 		params.set('state', state);
 	if (nonce)
@@ -33,11 +35,25 @@ export function exchangeOAuthCodeForTokens(client_id: OAuthClientId, client_secr
 	return fetch(`${OAUTH_API_BASE}/v1/token`, {
 		body,
 		method: 'POST',
-		headers: { 'content-type': 'application/x-www-form-urlencode' }
-	}).then(response => response.json());
+		headers: { 'content-type': 'application/x-www-form-urlencoded' }
+	})
+		.then(response => response.json().catch(error => {
+			throw new WebRequestError(error.message, { cause: error });
+		}))
+		.then(data => {
+			if (data.error === 'invalid_grant')
+				throw new InvalidOAuthGrantError(data.error_description);
+			return data;
+		});
 }
 
 export function exchangeOAuthCodeForMethod(client_id: OAuthClientId, client_secret: OAuthClientSecret, code: string, code_verifier?: string | null) {
 	return exchangeOAuthCodeForTokens(client_id, client_secret, code, code_verifier)
-		.then(response => new OpenCloudOAuthToken(response));
+		.then(response => new OpenCloudOAuthToken({
+			...response,
+			client_id,
+			client_secret,
+
+			created_at: new Date()
+		}));
 }

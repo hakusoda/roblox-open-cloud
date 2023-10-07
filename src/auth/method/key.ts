@@ -6,7 +6,7 @@ export default class OpenCloudApiKey extends AuthenticationMethod {
 		this.value = value;
 	}
 
-	getHeaders() {
+	public getHeaders() {
 		return Promise.resolve({ 'x-api-key': this.value });
 	}
 }

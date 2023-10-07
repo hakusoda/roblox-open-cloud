@@ -1,10 +1,28 @@
+import OpenCloudOAuthToken from '../auth/method/oauth';
 import type OpenCloudClient from './index';
-import type { ListInventoryItemsResponse } from '../types';
+import { GenericRequestError, MissingOAuthScopeError } from '../errors';
+import type { OAuthUserInfo, ListInventoryItemsResponse } from '../types';
 export default class OpenCloudUsers {
 	private client: OpenCloudClient;
 	private baseUrl = 'v2/users';
 	public constructor(client: OpenCloudClient) {
 		this.client = client;
+	}
+
+	/**
+	 * Returns information about the user associated with the current OAuth 2.0 Tokens.
+	 */
+	public get() {
+		const { auth } = this.client;
+		if (auth instanceof OpenCloudOAuthToken)
+			return this.client.request<OAuthUserInfo>('https://apis.roblox.com/oauth/v1/userinfo')
+				.then(response => {
+					if (!response.success)
+						throw new GenericRequestError(response.error);
+					return response.data;
+				});
+
+		return null;
 	}
 
 	/**
@@ -38,15 +56,26 @@ export default class OpenCloudUsers {
 	 * When paginating, all other parameters provided to the subsequent call must match the call that provided the page token.
 	 * 
 	 * @returns A list of InventoryItems in the parent collection.
+	 * 
+	 * @throws {MissingOAuthScopeError}
 	 */
 	public getInventoryItems(userId: string | number, maxPageSize: number = 10, filter?: string | null, pageToken?: string | null) {
+		const { auth }  = this.client;
+		if (auth instanceof OpenCloudOAuthToken && !auth.hasScope('user.inventory-item:read'))
+			throw new MissingOAuthScopeError('user.inventory-item:read');
+		
 		const params = new URLSearchParams(`maxPageSize=${maxPageSize}`);
 		if (filter)
 			params.set('filter', filter);
 		if (pageToken)
 			params.set('pageToken', pageToken);
 
-		return this.request<ListInventoryItemsResponse>(`${userId}/inventory-items?${params}`);
+		return this.request<ListInventoryItemsResponse>(`${userId}/inventory-items?${params}`)
+			.then(response => {
+				if (!response.success)
+					throw new GenericRequestError(response.error);
+				return response.data;
+			});
 	}
 
 	private request<T>(path: string | number | URL) {

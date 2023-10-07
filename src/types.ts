@@ -109,12 +109,91 @@ export type OAuthResponseType = 'none' | 'code'
 export type OAuthClientId = `${number}` | number
 export type OAuthClientSecret = `RBX-${string}`
 
+export type RobloxApiErrorType = 'invalid_grant' | string
+export interface RobloxApiError {
+	error: RobloxApiErrorType
+	error_description: string
+}
+
+export type ClientRequestResponse<T> = {
+	data: T
+	success: true
+} | (RobloxApiError & { success: false })
+
 export interface OAuthObtainTokenResponse {
 	scope: string
+	id_token: string
 	expires_in: number
 	token_type: 'Bearer'
 	access_token: string
 	refresh_token: string
+}
+
+/**
+ * You can use the `sub` value to uniquely identify the user.
+ * 
+ * Users can change their Roblox username and display name, so don't use them as unique identifiers to refer to users on your app.
+ * @see https://create.roblox.com/docs/cloud/reference/oauth2#get-v1userinfo
+ */
+export interface OAuthUserInfo {
+	/**
+	 * Roblox user ID.
+	 */
+	sub: string
+
+	/**
+	 * Roblox display name.
+	 */
+	name?: string
+
+	/**
+	 * Roblox display name.
+	 */
+	nickname?: string
+
+	/**
+	 * Roblox username.
+	 */
+	preferred_username?: string
+
+	/**
+	 * Creation time of the Roblox account as a Unix timestamp.
+	 */
+	created_at?: number
+	
+	/**
+	 * Roblox account profile URL.
+	 */
+	profile?: string
+
+	/**
+	 * Roblox avatar headshot image.
+	 * Can be null if the avatar headshot image hasn't yet been generated or has been moderated.
+	 */
+	picture?: string | null
+}
+
+export interface OAuthMethodData extends OAuthObtainTokenResponse {
+	/**
+	 * The identifier of the Roblox OAuth 2.0 Application associated with these tokens.
+	 * 
+	 * Required for refreshing.
+	 */
+	client_id: OAuthClientId
+
+	/**
+	 * The secret of the Roblox OAuth 2.0 Application associated with these tokens.
+	 * 
+	 * Required for refreshing.
+	 */
+	client_secret: OAuthClientSecret
+
+	/**
+	 * Timestamp of when the tokens were created or last refreshed.
+	 * 
+	 * Required for refreshing.
+	 */
+	created_at: Date
 }
 
 /**
