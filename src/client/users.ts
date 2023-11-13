@@ -1,7 +1,7 @@
-import OpenCloudOAuthToken from '../auth/method/oauth';
-import type OpenCloudClient from './index';
-import { GenericRequestError, MissingOAuthScopeError } from '../errors';
-import type { OAuthUserInfo, ListInventoryItemsResponse } from '../types';
+import OpenCloudOAuthToken from '../auth/method/oauth.ts';
+import type OpenCloudClient from './index.ts';
+import { GenericRequestError, MissingOAuthScopeError } from '../errors.ts';
+import type { OAuthUserInfo, ListInventoryItemsResponse } from '../types.ts';
 export default class OpenCloudUsers {
 	private client: OpenCloudClient;
 	private baseUrl = 'v2/users';

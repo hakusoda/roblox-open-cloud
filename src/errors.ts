@@ -1,4 +1,4 @@
-import type { OAuthScope } from './types';
+import type { OAuthScope } from './types.ts';
 export class OpenCloudClientError extends Error {}
 
 export class WebRequestError extends OpenCloudClientError {}

@@ -1,4 +1,4 @@
-import AuthenticationMethod from './index';
+import AuthenticationMethod from './index.ts';
 export default class OpenCloudApiKey extends AuthenticationMethod {
 	private value: string;
 	public constructor(value: string) {

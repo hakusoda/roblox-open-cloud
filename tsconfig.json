@@ -2,15 +2,11 @@
 	"include": ["./src/**/*"],
 	"compilerOptions": {
 		"strict": true,
-		"outDir": "out",
 		"target": "esnext",
-		"module": "esnext",
-		"sourceMap": false,
+		"module": "node16",
 		"declaration": true,
-		"skipLibCheck": true,
-		"declarationMap": false,
-		"isolatedModules": true,
-		"moduleResolution": "node",
-		"forceConsistentCasingInFileNames": true
+		"moduleResolution": "node16",
+		"emitDeclarationOnly": true,
+		"allowImportingTsExtensions": true
 	}
 }

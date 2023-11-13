@@ -1,8 +1,8 @@
-import OpenCloudUsers from './users';
-import OpenCloudGroups from './groups';
-import { WebRequestError } from '../errors';
-import type AuthenticationMethod from '../auth/method/index';
-import type { HttpMethod, ClientRequestResponse } from '../types';
+import OpenCloudUsers from './users.ts';
+import OpenCloudGroups from './groups.ts';
+import { WebRequestError } from '../errors.ts';
+import type AuthenticationMethod from '../auth/method/index.ts';
+import type { HttpMethod, ClientRequestResponse } from '../types.ts';
 export default class OpenCloudClient {
 	public auth: AuthenticationMethod;
 	public users: OpenCloudUsers;

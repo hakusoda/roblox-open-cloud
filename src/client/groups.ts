@@ -1,6 +1,6 @@
-import type OpenCloudClient from './index';
-import type { OpenCloudGroup } from '../types';
-import { GenericRequestError } from '../errors';
+import type OpenCloudClient from './index.ts';
+import type { OpenCloudGroup } from '../types.ts';
+import { GenericRequestError } from '../errors.ts';
 export default class OpenCloudGroups {
 	private client: OpenCloudClient;
 	private baseUrl = 'v2/groups';

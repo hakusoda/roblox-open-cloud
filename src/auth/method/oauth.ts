@@ -1,7 +1,7 @@
-import AuthenticationMethod from './index';
-import type OpenCloudClient from '../../client';
-import { RefreshOAuthTokensError } from '../../errors';
-import type { OAuthScope, OAuthMethodData, OAuthObtainTokenResponse } from '../../types';
+import AuthenticationMethod from './index.ts';
+import type OpenCloudClient from '../../client/index.ts';
+import { RefreshOAuthTokensError } from '../../errors.ts';
+import type { OAuthScope, OAuthMethodData, OAuthObtainTokenResponse } from '../../types.ts';
 export default class OpenCloudOAuthToken extends AuthenticationMethod {
 	public data: OAuthMethodData;
 	public constructor(data: OAuthMethodData) {

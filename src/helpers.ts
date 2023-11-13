@@ -1,7 +1,7 @@
-import { OAUTH_API_BASE } from './constants';
-import OpenCloudOAuthToken from './auth/method/oauth';
-import { WebRequestError, InvalidOAuthGrantError } from './errors';
-import type { OAuthClientId, OAuthPromptType, OAuthClientSecret, OAuthResponseType, OAuthObtainTokenResponse } from './types';
+import { OAUTH_API_BASE } from './constants.ts';
+import OpenCloudOAuthToken from './auth/method/oauth.ts';
+import { WebRequestError, InvalidOAuthGrantError } from './errors.ts';
+import type { OAuthClientId, OAuthPromptType, OAuthClientSecret, OAuthResponseType, OAuthObtainTokenResponse } from './types.ts';
 export function createOAuthLink(client_id: OAuthClientId, redirect_uri: string, scope: string, prompt?: OAuthPromptType, response_type: OAuthResponseType = 'code', state?: string | null, nonce?: string | null, code_challenge?: string | null, code_challenge_method?: string | null) {
 	const url = new URL(`${OAUTH_API_BASE}/v1/authorize`);
 	const params = url.searchParams;
