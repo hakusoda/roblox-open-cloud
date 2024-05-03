@@ -212,3 +212,112 @@ export interface ListInventoryItemsResponse {
 	 */
 	nextPageToken?: string
 }
+
+/**
+ * A configurable property to grant specific privileges for members within a group.
+ * @see https://create.roblox.com/docs/cloud/reference/GroupRole
+ */
+export interface GroupRole {
+	/** A unique ID that identifies a role. */
+	id: string
+	
+	/**
+	 * The resource path of the group role.
+
+	 * Format: `groups/{group}/roles/{group_role}`
+	 */
+	path: `groups/${number}/roles/${number}`
+
+	/**
+	 * The rank of the role.
+
+	 * The minimum value is 0. The maximum value is 255.
+	 */
+	rank: number
+
+	/**
+	 * The timestamp at which the GroupRole was created.
+
+	 * Visible only to owners of the group. This string is formatted as a [Timestamp](https://create.roblox.com/docs/cloud/reference/types#timestamp).
+	 */
+	createTime: string
+
+	/**
+	 * The timestamp at which the GroupRole was last updated.
+
+	 * Visible only to owners of the group. This string is formatted as a [Timestamp](https://create.roblox.com/docs/cloud/reference/types#timestamp).
+	 */
+	updateTime: string
+
+	/**
+	 * The name of the role.
+
+	 * Has a maximum limit of 100 characters. Names above the limit are rejected.
+	 */
+	displayName: string
+
+	/**
+	 * The description of the role.
+
+	 * Has a maximum limit of 1000 characters.
+	 * Strings above the limit are rejected.
+	 * 
+	 * Visible only to owners of the group.
+	 */
+	description?: string
+
+	/**
+	 * Total number of members within a role.
+
+	 * This field is not returned for guest roles.
+	 */
+	memberCount?: number
+
+	/**
+	 * The permissions granted for this role.
+
+	 * This value is populated based on the read scope and role of the authorized user or API key creator.
+
+	 * If the user or creator is the owner of the parent group, they are able to view all role permissions in the group.
+	 
+	 * If the user or creator is a member of the parent group, they are able to view their role's permissions in the group.
+	
+	 * Anyone can view guest permissions. In the case that someone can't view the permissions, this field is not returned.
+	 */
+	permissions?: {
+		viewWallPosts: boolean
+		createWallPosts: boolean
+		deleteWallPosts: boolean
+		viewGroupShout: boolean
+		createGroupShout: boolean
+		changeRank: boolean
+		acceptRequests: boolean
+		exileMembers: boolean
+		manageRelationships: boolean
+		viewAuditLog: boolean
+		spendGroupFunds: boolean
+		advertiseGroup: boolean
+		createAvatarItems: boolean
+		manageAvatarItems: boolean
+		manageGroupUniverses: boolean
+		viewUniverseAnalytics: boolean
+		createApiKeys: boolean
+		manageApiKeys: true
+	}
+}
+
+/**
+ * A list of GroupRoles in the parent collection.
+ * @see https://create.roblox.com/docs/cloud/reference/GroupRole#List-Group-Roles
+ */
+export interface ListGroupRolesResponse {
+	/**
+	 * The GroupRoles from the specified Group.
+	 */
+	groupRoles: GroupRole[]
+
+	/**
+	 * A token that you can send as a `pageToken` parameter to retrieve the next page. If this field is omitted, there are no subsequent pages.
+	 */
+	nextPageToken?: string
+}
