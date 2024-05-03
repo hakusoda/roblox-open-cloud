@@ -5,9 +5,9 @@ __metadata:
   version: 8
   cacheKey: 10c0
 
-"@voxelified/roblox-open-cloud@workspace:.":
+"@hakumi/roblox-open-cloud@workspace:.":
   version: 0.0.0-use.local
-  resolution: "@voxelified/roblox-open-cloud@workspace:."
+  resolution: "@hakumi/roblox-open-cloud@workspace:."
   dependencies:
     typescript: "npm:^5.2.2"
   languageName: unknown
